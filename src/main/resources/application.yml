@@ -1,0 +1,25 @@
+
+# Configuraciones general del microservicio
+spring:
+  profiles:
+    active: local
+  mvc:
+    servlet: # Configuraciones para las solicitudes HTTP
+      path: /cortesrmzcau/practices/ # Ruta base
+
+# Configuraciones para swagger
+springdoc:
+  swagger-ui:
+    enabled: true # Habilitar o deshabilitar swagger.
+    path: /documentation # Path personalizado para swagger.
+    try-it-out-enabled: true # Habilitar o deshabilitar el botón try out.
+  api-docs:
+    enabled: true # Habilitar o deshabilitar api docs.
+    path: /api-docs # Path personalizado para api docs.
+  packages-to-scan: org.cortesrmzcau.practices.controller # Paquetes a escanear.
+
+cortesrmzcau: # Rutas para swagger dependiendo del ambiente
+  openapi:
+    local-url: http://localhost:8080
+    dev-url: http://localhost:8081
+    prod-url: http://localhost:8082
