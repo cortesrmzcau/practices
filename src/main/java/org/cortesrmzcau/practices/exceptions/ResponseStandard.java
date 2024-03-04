@@ -13,7 +13,7 @@ public class ResponseStandard extends RuntimeException {
               .status(httpStatus)
               .body(new StructureResponseSuccess(
                       UUID.randomUUID().toString(),
-                      "Operación Exitosa",
+                      "Success operation",
                       message));
   }
 
@@ -22,7 +22,7 @@ public class ResponseStandard extends RuntimeException {
               .status(httpStatus)
               .body(new StructureResponseSuccess(
                       UUID.randomUUID().toString(),
-                      "Operación Exitosa",
+                      "Invalid request",
                       message));
   }
 }

@@ -1,7 +1,7 @@
-package org.cortesrmzcau.practices.clients;
+package org.cortesrmzcau.practices.client.storeApiPlatzi;
 
 import org.cortesrmzcau.practices.models.response.ProductsResponse;
 
-public interface IConsumeProductAPIClient {
+public interface IConsumeProductClient {
   ProductsResponse getProduct(Long id);
 }

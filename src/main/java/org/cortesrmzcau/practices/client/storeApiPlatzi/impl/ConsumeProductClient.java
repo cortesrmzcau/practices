@@ -1,7 +1,7 @@
-package org.cortesrmzcau.practices.clients.imp;
+package org.cortesrmzcau.practices.client.storeApiPlatzi.impl;
 
 import lombok.extern.log4j.Log4j2;
-import org.cortesrmzcau.practices.clients.IConsumeProductAPIClient;
+import org.cortesrmzcau.practices.client.storeApiPlatzi.IConsumeProductClient;
 import org.cortesrmzcau.practices.models.response.ProductsResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -11,7 +11,7 @@ import reactor.core.publisher.Mono;
 
 @Service
 @Log4j2
-public class ConsumeProductAPIClient implements IConsumeProductAPIClient {
+public class ConsumeProductClient implements IConsumeProductClient {
   @Override
   public ProductsResponse getProduct(Long id) {
     WebClient webClient = WebClient.builder()
