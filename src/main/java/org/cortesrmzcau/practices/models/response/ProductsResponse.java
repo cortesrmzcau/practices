@@ -3,6 +3,7 @@ package org.cortesrmzcau.practices.models.response;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.cortesrmzcau.practices.models.mapper.CategoryProductsResponse;
 
 import java.util.List;
 
@@ -17,5 +18,5 @@ public class ProductsResponse {
   private List<String> images;
   private String creationAt;
   private String updatedAt;
-  private Category category;
+  private CategoryResponse category;
 }

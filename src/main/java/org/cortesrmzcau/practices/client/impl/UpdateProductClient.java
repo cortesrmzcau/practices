@@ -1,6 +1,6 @@
-package org.cortesrmzcau.practices.client.storeApiPlatzi.impl;
+package org.cortesrmzcau.practices.client.impl;
 
-import org.cortesrmzcau.practices.client.storeApiPlatzi.IUpdateProductClient;
+import org.cortesrmzcau.practices.client.IUpdateProductClient;
 import org.cortesrmzcau.practices.models.request.ProductRequest;
 import org.cortesrmzcau.practices.models.response.ProductsResponse;
 import org.springframework.http.HttpHeaders;

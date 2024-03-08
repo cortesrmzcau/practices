@@ -1,6 +1,6 @@
-package org.cortesrmzcau.practices.client.storeApiPlatzi.impl;
+package org.cortesrmzcau.practices.client.impl;
 
-import org.cortesrmzcau.practices.client.storeApiPlatzi.IDeleteProductClient;
+import org.cortesrmzcau.practices.client.IDeleteProductClient;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;

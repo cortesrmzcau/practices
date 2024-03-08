@@ -5,7 +5,7 @@ spring:
     active: local
   mvc:
     servlet: # Configuraciones para las solicitudes HTTP
-      path: /cortesrmzcau/practices/ # Ruta base
+      path: /cortesrmzcau/web-client/ # Ruta base
 
 # Configuraciones para swagger
 springdoc:

@@ -1,7 +1,7 @@
-package org.cortesrmzcau.practices.client.storeApiPlatzi.impl;
+package org.cortesrmzcau.practices.client.impl;
 
 import lombok.extern.log4j.Log4j2;
-import org.cortesrmzcau.practices.client.storeApiPlatzi.IConsumeProductClient;
+import org.cortesrmzcau.practices.client.IConsumeProductClient;
 import org.cortesrmzcau.practices.models.response.ProductsResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

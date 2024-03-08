@@ -1,4 +1,4 @@
-package org.cortesrmzcau.practices.client.storeApiPlatzi;
+package org.cortesrmzcau.practices.client;
 
 import org.cortesrmzcau.practices.models.response.ProductsResponse;
 import java.util.List;
