@@ -16,10 +16,10 @@ springdoc:
   api-docs:
     enabled: true # Habilitar o deshabilitar api docs.
     path: /api-docs # Path personalizado para api docs.
-  packages-to-scan: org.cortesrmzcau.practices.controller # Paquetes a escanear.
+  packages-to-scan: org.cortesrmzcau.webclient.controller # Paquetes a escanear.
 
 cortesrmzcau: # Rutas para swagger dependiendo del ambiente
   openapi:
-    local-url: http://localhost:8080
-    dev-url: http://localhost:8081
-    prod-url: http://localhost:8082
+    local-url: http://localhost:8080/cortesrmzcau/web-client/
+    dev-url: http://localhost:8081/cortesrmzcau/web-client/
+    prod-url: http://localhost:8082/cortesrmzcau/web-client/
