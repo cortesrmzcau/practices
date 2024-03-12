@@ -1,7 +1,7 @@
 /*
  * @author    cortesrmzcau
  * @project   webclient-api-platzi
- * @package   class with the exceptions for implement in the controllers
+ * @package   exceptions for implement in the controllers
  * @version   1.0.0
  * @since     17
  */

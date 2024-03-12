@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 /*
  * @author    cortesrmzcau
  * @project   webclient-api-platzi
- * @resume    class to update a product from platzi products api
+ * @resume    update a product from platzi products api
  * @version   1.0
  * @since     17
  */

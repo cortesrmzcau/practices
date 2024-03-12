@@ -11,7 +11,7 @@ import reactor.core.publisher.Mono;
 /*
  * @author    cortesrmzcau
  * @project   webclient-api-platzi
- * @resume    class to remove a product from platzi products api
+ * @resume    remove a product from platzi products api
  * @version   1.0.0
  * @since     17
  */
@@ -42,7 +42,7 @@ public class DeleteProductClient implements IDeleteProductClient {
         return resultWebClient;
       }
       else {
-        throw new NullPointerException("The result is null");
+        throw new NullPointerException("The result is null.");
       }
   }
 }

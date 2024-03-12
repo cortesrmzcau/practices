@@ -15,7 +15,7 @@ import java.util.List;
 /*
  * @author    cortesrmzcau
  * @project   webclient-api-platzi
- * @resume    class to get all products from platzi products api
+ * @resume    get all products from platzi products api
  * @version   1.0.0
  * @since     17
  */
@@ -31,12 +31,12 @@ public class ProductsClient implements IProductsClient {
                 .build();
 
     Flux<ProductsResponse> productsResponseFlux = webClient.get()
-            .uri("/products1")
+            .uri("/products")
             .retrieve()// Indica que la solicitud ha sido configurada y se debe de realizar
             .bodyToFlux(ProductsResponse.class)
             .onErrorResume(throwable -> {
-              log.error("res " + throwable.getMessage());
-              throw new NoGetProductsException("111");
+              log.error("result {}", throwable.getMessage());
+              throw new NoGetProductsException("Error to getting products from api.");
             }); // bodyToFlux indica que se toma la respuesta y se convierte el flujo Flux
     // Flux cuando recibes cero, uno o varios elementos en la respeusta.
 

@@ -19,12 +19,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 /*
  * @author    cortesrmzcau
  * @project   webclient-api-platzi
- * @resume    class with the controller for consume the api
+ * @resume    controller for consume the api by platzi
  * @version   1.0.0
  * @since     17
  */
@@ -64,19 +65,25 @@ public class ConsumeController {
       return responseStandard.responseSuccess(HttpStatus.OK, productsResponseArrayList);
     }
     catch (NoGetProductsException exception) {
-      log.error("Error al obtener los productos del api.", exception);
-      return responseStandard.responseErrorInternalServer(HttpStatus.NOT_FOUND, "Error al obtener los productos"); //
+      log.error("Error to getting products from api.", exception);
+      return responseStandard.reponseNotFound(HttpStatus.NOT_FOUND, Collections.singletonList("Error to getting products from api."));
     }
   }
 
   @Operation(summary = "Consume product", description = "Consume a product", tags = "Products")
   @ApiResponses(value = {
-          @ApiResponse(responseCode = "200", description = "successful operation")
+          @ApiResponse(responseCode = "200", description = "successful operation.")
   })
   @GetMapping(value = "/product/{id}")
   public ResponseEntity<Object> consumeProduct(@PathVariable Long id) {
-    ProductsResponse productsResponse = iProductClient.getProduct(id);
-    return responseStandard.responseSuccess(HttpStatus.OK, productsResponse);
+    try {
+      ProductsResponse productsResponse = iProductClient.getProduct(id);
+      return responseStandard.responseSuccess(HttpStatus.OK, productsResponse);
+    }
+    catch (NoGetProductsException exception) {
+      log.error("Error to getting product from api.", exception);
+      return responseStandard.reponseNotFound(HttpStatus.NOT_FOUND, Collections.singletonList("Error to getting product from api."));
+    }
   }
 
   @Operation(summary = "Delete product", description = "Delete a product", tags = "Products")
@@ -88,10 +95,10 @@ public class ConsumeController {
     boolean delete = iDeleteProductClient.deleteProduct(id);
 
     if (delete) {
-      return responseStandard.responseSuccess(HttpStatus.OK, "Product deleted");
+      return responseStandard.responseSuccess(HttpStatus.OK, "Product deleted.");
     }
     else {
-      return responseStandard.reponseNotFound(HttpStatus.NOT_FOUND, "Product not found");
+      return responseStandard.reponseNotFound(HttpStatus.NOT_FOUND, Collections.singletonList("Product not found."));
     }
   }
 
@@ -109,7 +116,7 @@ public class ConsumeController {
       return responseStandard.responseSuccess(HttpStatus.OK, updateProduct);
     }
     else {
-      return responseStandard.reponseNotFound(HttpStatus.NOT_FOUND, "Product not found");
+      return responseStandard.reponseNotFound(HttpStatus.NOT_FOUND, Collections.singletonList("Product not found."));
     }
   }
 }

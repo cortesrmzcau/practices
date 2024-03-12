@@ -13,7 +13,7 @@ import java.util.List;
 /*
  * @author    cortesrmzcau
  * @project   webclient-api-platzi
- * @resume    class with the configuration for swagger
+ * @resume    configuration for swagger
  * @version   1.0.0
  * @since     17
  */
