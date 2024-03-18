@@ -9,8 +9,7 @@ import org.cortesrmzcau.webclient.client.IProductClient;
 import org.cortesrmzcau.webclient.client.IProductsClient;
 import org.cortesrmzcau.webclient.client.IDeleteProductClient;
 import org.cortesrmzcau.webclient.client.IUpdateProductClient;
-import org.cortesrmzcau.webclient.exceptions.NoGetProductsException;
-import org.cortesrmzcau.webclient.exceptions.ResponseStandard;
+import org.cortesrmzcau.webclient.component.CodeResponseComponent;
 import org.cortesrmzcau.webclient.models.request.ProductRequest;
 import org.cortesrmzcau.webclient.models.response.ProductsResponse;
 import org.cortesrmzcau.webclient.utils.Constants;
@@ -36,20 +35,20 @@ import java.util.List;
 @RequestMapping(Constants.VERSION)
 @Log4j2
 public class ConsumeController {
-  private final ResponseStandard responseStandard;
+  private final CodeResponseComponent codeResponseComponent;
   private final IProductsClient iProductsClient;
   private final IProductClient iProductClient;
   private final IDeleteProductClient iDeleteProductClient;
   private final IUpdateProductClient iUpdateProductClient;
 
-  public ConsumeController(IProductsClient iProductsClient,
+  public ConsumeController(CodeResponseComponent codeResponseComponent,
+                           IProductsClient iProductsClient,
                            IProductClient iProductClient,
-                           ResponseStandard responseStandard,
                            IDeleteProductClient iDeleteProductClient,
                            IUpdateProductClient iUpdateProductClient) {
+    this.codeResponseComponent = codeResponseComponent;
     this.iProductsClient = iProductsClient;
     this.iProductClient = iProductClient;
-    this.responseStandard = responseStandard;
     this.iDeleteProductClient = iDeleteProductClient;
     this.iUpdateProductClient = iUpdateProductClient;
   }
@@ -62,11 +61,12 @@ public class ConsumeController {
   public ResponseEntity<Object> consumeProducts() {
     try {
       List<ProductsResponse> productsResponseArrayList = iProductsClient.getProducts();
-      return responseStandard.responseSuccess(HttpStatus.OK, productsResponseArrayList);
+      return codeResponseComponent.responseEntity(HttpStatus.OK, productsResponseArrayList, null);
     }
-    catch (NoGetProductsException exception) {
+    catch (IllegalArgumentException exception) {
       log.error("Error to getting products from api.", exception);
-      return responseStandard.reponseNotFound(HttpStatus.NOT_FOUND, Collections.singletonList("Error to getting products from api."));
+      return codeResponseComponent.responseEntity(
+              HttpStatus.NOT_FOUND, null, Collections.singletonList("Error to getting products from api."));
     }
   }
 
@@ -78,11 +78,11 @@ public class ConsumeController {
   public ResponseEntity<Object> consumeProduct(@PathVariable Long id) {
     try {
       ProductsResponse productsResponse = iProductClient.getProduct(id);
-      return responseStandard.responseSuccess(HttpStatus.OK, productsResponse);
+      return codeResponseComponent.responseEntity(HttpStatus.OK, productsResponse, null);
     }
-    catch (NoGetProductsException exception) {
+    catch (IllegalArgumentException exception) {
       log.error("Error to getting product from api.", exception);
-      return responseStandard.reponseNotFound(HttpStatus.NOT_FOUND, Collections.singletonList("Error to getting product from api."));
+      return codeResponseComponent.responseEntity(HttpStatus.NOT_FOUND, null, Collections.singletonList("Error to getting product from api."));
     }
   }
 
@@ -92,13 +92,13 @@ public class ConsumeController {
   })
   @DeleteMapping(value = "/product/{id}")
   public ResponseEntity<Object> deleteProduct(@PathVariable Long id) {
-    boolean delete = iDeleteProductClient.deleteProduct(id);
-
-    if (delete) {
-      return responseStandard.responseSuccess(HttpStatus.OK, "Product deleted.");
+    try {
+      iDeleteProductClient.deleteProduct(id);
+      return codeResponseComponent.responseEntity(HttpStatus.OK, null, null);
     }
-    else {
-      return responseStandard.reponseNotFound(HttpStatus.NOT_FOUND, Collections.singletonList("Product not found."));
+    catch (IllegalArgumentException exception) {
+      log.error("Error to delete product.", exception);
+      return codeResponseComponent.responseEntity(HttpStatus.NOT_FOUND, null, Collections.singletonList("Error to delete product."));
     }
   }
 
@@ -106,17 +106,17 @@ public class ConsumeController {
   @ApiResponses(value = {
              @ApiResponse(responseCode = "200", description = "product updated")
           })
-  @PutMapping(value = "/updateProduct/{id}")
+  @PutMapping(value = "/product/{id}")
   public ResponseEntity<Object> updateProduct(
           @PathVariable Long id,
           @RequestBody ProductRequest productRequest) {
-    ProductsResponse updateProduct = iUpdateProductClient.updateProduct(id, productRequest);
-
-    if (updateProduct != null) {
-      return responseStandard.responseSuccess(HttpStatus.OK, updateProduct);
+    try {
+      ProductsResponse updateProduct = iUpdateProductClient.updateProduct(id, productRequest);
+      return codeResponseComponent.responseEntity(HttpStatus.OK, updateProduct, null);
     }
-    else {
-      return responseStandard.reponseNotFound(HttpStatus.NOT_FOUND, Collections.singletonList("Product not found."));
+    catch (IllegalArgumentException exception) {
+      log.error("Error to update product.", exception);
+      return codeResponseComponent.responseEntity(HttpStatus.NOT_FOUND, null, Collections.singletonList("Error to update product."));
     }
   }
 }

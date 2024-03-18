@@ -1,4 +1,4 @@
-package org.cortesrmzcau.webclient.configurations;
+package org.cortesrmzcau.webclient.configurations.swagger;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;

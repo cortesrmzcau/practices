@@ -7,7 +7,7 @@ import org.cortesrmzcau.webclient.models.response.ProductsResponse;
  * @author    cortesrmzcau
  * @project   webclient-api-platzi
  * @resume    interface to update a product from platzi products api
- * @version   1.0
+ * @version   1.0.0
  * @since     17
  */
 public interface IUpdateProductClient {

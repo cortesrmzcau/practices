@@ -2,7 +2,6 @@ package org.cortesrmzcau.webclient.client.impl;
 
 import lombok.extern.log4j.Log4j2;
 import org.cortesrmzcau.webclient.client.IProductsClient;
-import org.cortesrmzcau.webclient.exceptions.NoGetProductsException;
 import org.cortesrmzcau.webclient.models.response.ProductsResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -36,7 +35,7 @@ public class ProductsClient implements IProductsClient {
             .bodyToFlux(ProductsResponse.class)
             .onErrorResume(throwable -> {
               log.error("result {}", throwable.getMessage());
-              throw new NoGetProductsException("Error to getting products from api.");
+              throw new IllegalArgumentException("Error to getting products from api.");
             }); // bodyToFlux indica que se toma la respuesta y se convierte el flujo Flux
     // Flux cuando recibes cero, uno o varios elementos en la respeusta.
 

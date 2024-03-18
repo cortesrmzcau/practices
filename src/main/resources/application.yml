@@ -1,6 +1,10 @@
 
 # Configuraciones general del microservicio
 spring:
+  application:
+    name: Interceptor
+    interceptor:
+      enabled: ${interceptor-enabled:true}
   profiles:
     active: local
   mvc:
@@ -23,3 +27,6 @@ cortesrmzcau: # Rutas para swagger dependiendo del ambiente
     local-url: http://localhost:8080/cortesrmzcau/web-client/
     dev-url: http://localhost:8081/cortesrmzcau/web-client/
     prod-url: http://localhost:8082/cortesrmzcau/web-client/
+
+http-response:
+  developer: cortesrmzcau

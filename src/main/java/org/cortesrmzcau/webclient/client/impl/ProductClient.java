@@ -2,7 +2,6 @@ package org.cortesrmzcau.webclient.client.impl;
 
 import lombok.extern.log4j.Log4j2;
 import org.cortesrmzcau.webclient.client.IProductClient;
-import org.cortesrmzcau.webclient.exceptions.NoGetProductsException;
 import org.cortesrmzcau.webclient.models.response.ProductsResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -29,12 +28,12 @@ public class ProductClient implements IProductClient {
             .build();
 
     Mono<ProductsResponse> productsMono = webClient.get()
-            .uri("/productsp/" + id)
+            .uri("/products/" + id)
             .retrieve()
             .bodyToMono(ProductsResponse.class)
             .onErrorResume(throwable -> {
               log.error("result {}", throwable.getMessage());
-              throw new NoGetProductsException("Error to getting the product from api.");
+              throw new IllegalArgumentException("Error to getting the product from api.");
             });
 
     return productsMono.block();

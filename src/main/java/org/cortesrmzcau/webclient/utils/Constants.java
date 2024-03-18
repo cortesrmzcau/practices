@@ -24,6 +24,14 @@ public final class Constants {
   public static final int X404 = 404; // No encontrado
   public static final int X500 = 500; // Error interno del servidor
 
+  // Mensajes de los codigos de respuesta
+  public static final String MSG_OPERACION_EXITOSA = "Operation successful.";
+  public static final String MSG_SOLICITUD_INVALIDA = "Invalid Request.";
+  public static final String MSG_ACCESO_NO_AUTORIZADO = "Unauthorized access.";
+  public static final String MSG_PERMISO_INVALIDO = "Invalid Permit.";
+  public static final String MSG_RECURSO_NO_ENCONTRADO = "Resource not found.";
+  public static final String MSG_ERROR_INTERNO_DEL_SERVIDOR = "Error internal server.";
+
   private Constants() { // Evitamos que se creen instancias de la clase desde fuera de la clase
     throw new IllegalArgumentException("IllegalArgumentException Constants");
   }

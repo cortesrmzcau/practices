@@ -1,5 +1,6 @@
 package org.cortesrmzcau.webclient.client.impl;
 
+import lombok.extern.log4j.Log4j2;
 import org.cortesrmzcau.webclient.client.IUpdateProductClient;
 import org.cortesrmzcau.webclient.models.request.ProductRequest;
 import org.cortesrmzcau.webclient.models.response.ProductsResponse;
@@ -17,6 +18,7 @@ import reactor.core.publisher.Mono;
  * @since     17
  */
 @Service
+@Log4j2
 public class UpdateProductClient implements IUpdateProductClient {
   @Override
   public ProductsResponse updateProduct(Long id, ProductRequest productRequest) {
@@ -26,10 +28,16 @@ public class UpdateProductClient implements IUpdateProductClient {
               .defaultHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
               .build();
 
-      return webClient.put()
+      Mono<ProductsResponse> productsResponse = webClient.put()
               .uri("/products/" + id)
               .body(Mono.just(productRequest), ProductRequest.class)
               .retrieve()
-              .bodyToMono(ProductsResponse.class).block();
+              .bodyToMono(ProductsResponse.class)
+              .onErrorResume(throwable -> {
+                  log.error("result {}", throwable.getMessage());
+                  throw new IllegalArgumentException("Error to update product.");
+              });
+
+      return productsResponse.block();
   }
 }

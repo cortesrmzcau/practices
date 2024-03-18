@@ -1,5 +1,6 @@
 package org.cortesrmzcau.webclient.client.impl;
 
+import lombok.extern.log4j.Log4j2;
 import org.cortesrmzcau.webclient.client.IDeleteProductClient;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -16,6 +17,7 @@ import reactor.core.publisher.Mono;
  * @since     17
  */
 @Service
+@Log4j2
 public class DeleteProductClient implements IDeleteProductClient {
   @Override
   public boolean deleteProduct(Long id) {
@@ -25,24 +27,16 @@ public class DeleteProductClient implements IDeleteProductClient {
             .defaultHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
             .build();
 
-      var resultWebClient = webClient.delete()
+      Mono<Boolean> resultWebClient = webClient.delete()
             .uri("/products/" + id)
             .retrieve()
             .bodyToMono(Void.class)
             .thenReturn(true)
-            .onErrorResume(WebClientResponseException.class, ex -> {
-                if (ex.getStatusCode().is4xxClientError()) {
-                  return Mono.just(false);
-                } else {
-                  return Mono.error(ex);
-                }
-              }).block();
+            .onErrorResume(throwable -> {
+              log.error("result {}", throwable.getMessage());
+              throw new IllegalArgumentException("Error to delete product.");
+            });
 
-      if(resultWebClient != null) {
-        return resultWebClient;
-      }
-      else {
-        throw new NullPointerException("The result is null.");
-      }
+      return Boolean.TRUE.equals(resultWebClient.block());
   }
 }
